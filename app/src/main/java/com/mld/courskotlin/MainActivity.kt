@@ -3,6 +3,7 @@ package com.mld.courskotlin
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.mld.courskotlin.util.TestUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MyClick {
@@ -36,6 +37,29 @@ class MainActivity : AppCompatActivity(), MyClick {
             tv_hello.text = "unknown"
         }
 
+        val news = TestUtils.createNewsDataTest()
+        for (n in news) {
+            Log.e(n.title, n.descShort)
+            n.images?.let {
+                for (img in it) {
+                    Log.e("image ", img)
+                }
+            } ?: run {
+                Log.e("image :", "NO IMAGES")
+            }
+        }
+
+
+        news.forEachIndexed { index, news ->
+            Log.e("index $index", "${news.title} - ${news.descShort}")
+            news.images?.let {
+                for (img in it) {
+                    Log.e("image ", img)
+                }
+            } ?: run {
+                Log.e("image :", "NO IMAGES")
+            }
+        }
     }
 
 
