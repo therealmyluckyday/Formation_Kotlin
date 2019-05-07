@@ -1,19 +1,18 @@
 package com.mld.courskotlin
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.mld.courskotlin.presentation.BaseActivity
 import com.mld.courskotlin.util.TestUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MyClick {
+class MainActivity : BaseActivity(), MyClick {
 
     companion object {
         const val TOTO = "TOTO"
     }
 
     private val TAG = "TAG"
-
     private lateinit var TAG2: String
     private var TAG3: String? = null
 
@@ -22,6 +21,10 @@ class MainActivity : AppCompatActivity(), MyClick {
     }
 
     override fun displayMessage(message: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun displayDialog() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -51,7 +54,7 @@ class MainActivity : AppCompatActivity(), MyClick {
 
 
         news.forEachIndexed { index, news ->
-            Log.e("index $index", "${news.title} - ${news.descShort}")
+            Log.e("index $index", "${news.title} - ${news.descShort}") // String template
             news.images?.let {
                 for (img in it) {
                     Log.e("image ", img)
