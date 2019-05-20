@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mld.courskotlin.R
 import com.mld.courskotlin.presentation.BaseFragment
+import com.mld.courskotlin.util.TestUtils
 import kotlinx.android.synthetic.main.fragment_list_news.*
 
 class ListNewsFragment : BaseFragment() {
@@ -40,5 +42,10 @@ class ListNewsFragment : BaseFragment() {
         arguments?.get(argKey)?.let {
             setTitle(it as String)
         }
+
+        val adapter = ListNewsAdapter(TestUtils.createNewsDataTest())
+        recycler_view.adapter = adapter
+        val manager = LinearLayoutManager(context)
+        recycler_view.layoutManager = manager
     }
 }

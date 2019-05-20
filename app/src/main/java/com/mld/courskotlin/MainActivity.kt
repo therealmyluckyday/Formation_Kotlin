@@ -3,12 +3,16 @@ package com.mld.courskotlin
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.widget.ArrayAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mld.courskotlin.presentation.BaseActivity
 import com.mld.courskotlin.presentation.BaseFragment
+import com.mld.courskotlin.presentation.news.creation.CreationNewsFragment
+import com.mld.courskotlin.presentation.news.list.ListNewsAdapter
 import com.mld.courskotlin.presentation.news.list.ListNewsFragment
 import com.mld.courskotlin.util.TestUtils
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_list_news.*
 
 class MainActivity : BaseActivity(), MyClick {
     override fun setTitle(title: String) {
@@ -40,7 +44,7 @@ class MainActivity : BaseActivity(), MyClick {
                 changeFragment(ListNewsFragment.newInstance("Frg 1"))
             }
             R.id.create_news -> {
-                changeFragment(ListNewsFragment.newInstance("Fragment 2"))
+                changeFragment(CreationNewsFragment())
             }
         }
     }
@@ -124,11 +128,6 @@ class MainActivity : BaseActivity(), MyClick {
 
     fun test2(): String {
         return "toto"
-    }
-
-    private fun createAdapter() {
-        //val adapter = ArrayAdapter(context = this, R.layout.adapter_list_news, R.id.recycler_view)
-        //recycler_view.adapter =
     }
 
     private fun getColor(value: COLOR): Int? {

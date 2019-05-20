@@ -11,6 +11,7 @@ buildscript {
     ext.material = '1.0.0'
     ext.picasso = '2.71828'
     ext.corektx = '1.0.1'
+    ext.picasso = '2.71828'
 
     repositories {
         google()
