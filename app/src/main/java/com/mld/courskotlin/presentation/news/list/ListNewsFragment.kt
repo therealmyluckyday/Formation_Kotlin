@@ -11,6 +11,18 @@ import kotlinx.android.synthetic.main.fragment_list_news.*
 
 class ListNewsFragment : BaseFragment() {
 
+    companion object {
+        var argKey = "title"
+        fun newInstance(argName: String): ListNewsFragment {
+            return ListNewsFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(argKey, argName)
+                }
+            }
+        }
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,5 +37,8 @@ class ListNewsFragment : BaseFragment() {
             Log.e("TAG", "click")
         }
 
+        arguments?.get(argKey)?.let {
+            setTitle(it as String)
+        }
     }
 }

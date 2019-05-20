@@ -6,4 +6,6 @@
 
     <color name="colorPrimaryLight">#720D5D</color>
 
+    <color name="white">#FFFFFF</color>
+    <color name="white_transparent">#80FFFFFF</color>
 </resources>

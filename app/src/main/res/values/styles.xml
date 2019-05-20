@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BottomNavigation">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="itemIconTint">@drawable/navigation_view_item_bg</item>
+        <item name="itemTextColor">@drawable/navigation_view_item_bg</item>
+    </style>
+
 </resources>
