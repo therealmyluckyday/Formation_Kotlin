@@ -1,10 +1,14 @@
 package com.mld.courskotlin
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.widget.ArrayAdapter
 import com.mld.courskotlin.presentation.BaseActivity
+import com.mld.courskotlin.presentation.news.list.ListNewsFragment
 import com.mld.courskotlin.util.TestUtils
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_list_news.*
 
 class MainActivity : BaseActivity(), MyClick {
 
@@ -40,8 +44,8 @@ class MainActivity : BaseActivity(), MyClick {
             tv_hello.text = "unknown"
         }
 
-        val news = TestUtils.createNewsDataTest()
-        for (n in news) {
+        val newsList = TestUtils.createNewsDataTest()
+        for (n in newsList) {
             Log.e(n.title, n.descShort)
             n.images?.let {
                 for (img in it) {
@@ -53,7 +57,7 @@ class MainActivity : BaseActivity(), MyClick {
         }
 
 
-        news.forEachIndexed { index, news ->
+        newsList.forEachIndexed { index, news ->
             Log.e("index $index", "${news.title} - ${news.descShort}") // String template
             news.images?.let {
                 for (img in it) {
@@ -63,20 +67,38 @@ class MainActivity : BaseActivity(), MyClick {
                 Log.e("image :", "NO IMAGES")
             }
         }
+
+        Handler()
+            .postDelayed({
+                fl_list_fragment.removeAllViews()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fl_list_fragment, ListNewsFragment())
+                    .addToBackStack(null)
+                    .commit()
+            },2000)
+
+
+
     }
 
 
     fun test1() {
-        Log.e("TAG" , "message")
+        Log.e("TAG", "message")
         //faire une boucle sur les colors
     }
 
-    fun test2() : String {
+    fun test2(): String {
         return "toto"
     }
 
-    private fun getColor(value : COLOR) : Int? {
-        return when(value) {
+    private fun createAdapter() {
+        //val adapter = ArrayAdapter(context = this, R.layout.adapter_list_news, R.id.recycler_view)
+        //recycler_view.adapter =
+    }
+
+    private fun getColor(value: COLOR): Int? {
+        return when (value) {
             COLOR.BLUE -> {
                 Log.e(TAG, COLOR.BLUE.text)
                 0
@@ -89,10 +111,10 @@ class MainActivity : BaseActivity(), MyClick {
 
 interface MyClick {
     fun onClick()
-    fun displayMessage(message : String)
+    fun displayMessage(message: String)
 }
 
-enum class COLOR(val text : String) {
+enum class COLOR(val text: String) {
     BLUE("bleue"),
     BLACK("noir"),
     RED("rouge")
