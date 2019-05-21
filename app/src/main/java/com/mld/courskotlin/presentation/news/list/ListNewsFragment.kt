@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mld.courskotlin.R
 import com.mld.courskotlin.presentation.BaseFragment
@@ -43,7 +44,17 @@ class ListNewsFragment : BaseFragment() {
             setTitle(it as String)
         }
 
-        val adapter = ListNewsAdapter(TestUtils.createNewsDataTest())
+        val adapter = ListNewsAdapter(TestUtils.createNewsDataTest()) { position, news ->
+            Toast.makeText(context, position.toString(), 2).show()
+            val fragment = DetailNewsFragment.newInstance(news)
+            //TODO generate a ui bug
+//            fragmentManager?.beginTransaction()
+//                ?.replace(R.id.fl_list_fragment, fragment)
+//                ?.addToBackStack(null)
+//                ?.commit()
+            changeFragment(fragment)
+
+        }
         recycler_view.adapter = adapter
         val manager = LinearLayoutManager(context)
         recycler_view.layoutManager = manager

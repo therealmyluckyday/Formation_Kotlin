@@ -53,9 +53,9 @@ class MainActivity : BaseActivity(), MyClick {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fl_list_fragment, fragment)
-            .addToBackStack(null)
             .commit()
     }
+
 
     override fun onClick() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -111,7 +111,6 @@ class MainActivity : BaseActivity(), MyClick {
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fl_list_fragment, ListNewsFragment())
-                    .addToBackStack(null)
                     .commit()
             }, 2000)
 

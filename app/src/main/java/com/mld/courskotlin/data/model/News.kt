@@ -1,6 +1,7 @@
 package com.mld.courskotlin.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class News(
     val id: Int,
@@ -10,4 +11,4 @@ data class News(
     @SerializedName("desc_long")
     val descLong: String,
     val images: List<String>? = null
-)
+) : Serializable

@@ -13,7 +13,9 @@ import com.mld.courskotlin.util.TestUtils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.adapter_list_news.view.*
 
-class ListNewsAdapter(private val listNews : List<News>) : RecyclerView.Adapter<ListNewsAdapter.ViewHolder>() {
+class ListNewsAdapter(
+    private val listNews : List<News>,
+    private var listener: (position: Int, news: News) -> Unit) : RecyclerView.Adapter<ListNewsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListNewsAdapter.ViewHolder {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -40,6 +42,11 @@ class ListNewsAdapter(private val listNews : List<News>) : RecyclerView.Adapter<
                 .placeholder(R.drawable.placeholder)
                 .into(holder.img)
         }
+
+        holder.img?.setOnClickListener {
+            listener(holder.adapterPosition, info)
+        }
+
     }
 
     class ViewHolder(val root: View) : RecyclerView.ViewHolder(root){
