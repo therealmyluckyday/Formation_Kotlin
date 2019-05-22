@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.ArrayAdapter
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mld.courskotlin.presentation.BaseActivity
 import com.mld.courskotlin.presentation.BaseFragment
@@ -11,6 +13,7 @@ import com.mld.courskotlin.presentation.news.creation.CreationNewsFragment
 import com.mld.courskotlin.presentation.news.list.ListNewsAdapter
 import com.mld.courskotlin.presentation.news.list.ListNewsFragment
 import com.mld.courskotlin.util.TestUtils
+import io.reactivex.Single
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_list_news.*
 
@@ -139,6 +142,43 @@ class MainActivity : BaseActivity(), MyClick {
             COLOR.RED -> 2
         }
     }
+
+    fun testThread1() {
+        Thread(Runnable {
+            tv_hello.text = "Bonjour "
+        }).start()
+    }
+
+    fun testThread2() {
+        Thread(Runnable {
+
+            runOnUiThread {
+                tv_hello.text = "Bonjour "
+            }
+
+
+        }).start()
+    }
+
+    fun testLiveData2() {
+        val obs = liveData1()
+        obs.observe(this, Observer{
+            tv_hello.text = "Bonjour Livedata"
+        })
+    }
+
+    fun liveData1() : MutableLiveData<Int> {
+        val obs = MutableLiveData<Int>()
+        Thread {
+            Handler().postDelayed({
+                obs.value = 10
+            },500)
+        }.start()
+
+        return obs
+
+    }
+
 }
 
 interface MyClick {
