@@ -2,4 +2,6 @@
 <resources>
     <string name="app_name">CoursKotlin</string>
     <string name="loading">Loading</string>
+    <string name="bottom_nav_item_1">Liste</string>
+    <string name="bottom_nav_item_2">Post</string>
 </resources>
