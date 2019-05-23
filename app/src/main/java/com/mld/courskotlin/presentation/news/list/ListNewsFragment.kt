@@ -4,15 +4,23 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mld.courskotlin.R
+import com.mld.courskotlin.presentation.BaseActivity
 import com.mld.courskotlin.presentation.BaseFragment
 import com.mld.courskotlin.util.TestUtils
 import kotlinx.android.synthetic.main.fragment_list_news.*
 
 class ListNewsFragment : BaseFragment() {
+
+    lateinit var vm: ListNewsViewModel
+    lateinit var adapter: ListNewsAdapter
 
     companion object {
         var argKey = "title"
@@ -36,6 +44,10 @@ class ListNewsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        vm = ViewModelProviders.of(this).get(ListNewsViewModel::class.java)
+
+        progress.visibility = VISIBLE
+
         bt_valider.setOnClickListener {
             Log.e("TAG", "click")
         }
@@ -44,19 +56,34 @@ class ListNewsFragment : BaseFragment() {
             setTitle(it as String)
         }
 
-        val adapter = ListNewsAdapter(TestUtils.createNewsDataTest()) { position, news ->
+        adapter = ListNewsAdapter(emptyList()) { position, news ->
             Toast.makeText(context, position.toString(), 2).show()
-            val fragment = DetailNewsFragment.newInstance(news)
+            //val fragment = DetailNewsFragment.newInstance(news)
             //TODO generate a ui bug
 //            fragmentManager?.beginTransaction()
 //                ?.replace(R.id.fl_list_fragment, fragment)
 //                ?.addToBackStack(null)
 //                ?.commit()
-            changeFragment(fragment)
+
+            //changeFragment(fragment)
+
+            //with activity
+            DetailNewsActivity.start(activity as BaseActivity, news)
 
         }
         recycler_view.adapter = adapter
         val manager = LinearLayoutManager(context)
         recycler_view.layoutManager = manager
+
+//        vm.listNews.observe(this, Observer {
+//
+//        })
+//
+//        vm.fetchNews()
+
+        vm.fetchNews2().observe(this, Observer {
+            adapter.updateList(it)
+            progress.visibility = GONE
+        })
     }
 }

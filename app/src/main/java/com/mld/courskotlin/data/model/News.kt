@@ -10,5 +10,7 @@ data class News(
     val descShort: String,
     @SerializedName("desc_long")
     val descLong: String,
-    val images: List<String>? = null
+    val images: List<String>? = null,
+    @SerializedName("url_path")
+    val image: String? = null
 ) : Serializable

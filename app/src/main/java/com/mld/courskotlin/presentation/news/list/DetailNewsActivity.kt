@@ -1,37 +1,40 @@
 package com.mld.courskotlin.presentation.news.list
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.mld.courskotlin.R
 import com.mld.courskotlin.data.model.News
-import com.mld.courskotlin.presentation.BaseFragment
+import com.mld.courskotlin.presentation.BaseActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_news_detail.*
 
-class DetailNewsFragment : BaseFragment() {
+class DetailNewsActivity : BaseActivity() {
+
 
     companion object {
         var argKey = "news"
-        fun newInstance(news: News): DetailNewsFragment {
-            return DetailNewsFragment().apply {
-                arguments = Bundle().apply {
-                    putSerializable(argKey, news)
-                }
-            }
+        fun start(activity : BaseActivity, news: News) {
+            val intent = Intent(activity, DetailNewsActivity::class.java)
+            intent.putExtra(argKey, news)
+            activity.startActivity(intent)
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_news_detail, container, false)
+    override fun displayDialog() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setTitle(title: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-        val news = arguments?.get(argKey) as News
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_news_detail)
+
+        val news = intent.extras?.get(DetailNewsFragment.argKey) as News
 
         news.let {
 
@@ -54,7 +57,6 @@ class DetailNewsFragment : BaseFragment() {
             tv_description.text = it.descLong
 
         }
-
     }
 
 }
