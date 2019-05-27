@@ -15,7 +15,7 @@ interface MyApi {
     fun getNews(): Call<List<News>>
 
     @GET("news")
-    fun getNews2(): LiveData<List<News>>
+    fun getNews2(): Call<List<News>>
 
 
     @POST("url/route:paramName")
@@ -25,8 +25,8 @@ interface MyApi {
     @FormUrlEncoded
     @POST("news")
     fun postNews(
-        @Field("newsTag") tag: String,
-        @Field("newsType") type: String,
-        @Field("newsName") name: String
-    ): Flowable<ApiResponse.ListNewsApiResponse>
+        @Field("title") title: String,
+        @Field("desc_short") descShort: String?,
+        @Field("desc_long") descLong: String?
+    ): Call<ApiResponse.PostNewsApiResponse>
 }

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mld.courskotlin.R
 import com.mld.courskotlin.presentation.BaseActivity
 import com.mld.courskotlin.presentation.BaseFragment
-import com.mld.courskotlin.util.TestUtils
 import kotlinx.android.synthetic.main.fragment_list_news.*
 
 class ListNewsFragment : BaseFragment() {
@@ -24,10 +23,10 @@ class ListNewsFragment : BaseFragment() {
 
     companion object {
         var argKey = "title"
-        fun newInstance(argName: String): ListNewsFragment {
+        fun newInstance(title: String): ListNewsFragment {
             return ListNewsFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(argKey, argName)
+                    putSerializable(argKey, title)
                 }
             }
         }
@@ -81,7 +80,13 @@ class ListNewsFragment : BaseFragment() {
 //
 //        vm.fetchNews()
 
-        vm.fetchNews2().observe(this, Observer {
+//        vm.fetchNews2().observe(this, Observer {
+//            adapter.updateList(it)
+//            progress.visibility = GONE
+//        })
+
+
+        vm.fetchNews3().observe(this, Observer {
             adapter.updateList(it)
             progress.visibility = GONE
         })

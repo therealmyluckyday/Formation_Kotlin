@@ -1,6 +1,8 @@
 package com.mld.courskotlin.presentation.news.list
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.mld.courskotlin.data.model.News
 import com.mld.courskotlin.util.RetrofitFactory
 import retrofit2.Call
@@ -30,7 +32,7 @@ class ListNewsViewModel : ViewModel() {
     }
 
 
-    fun fetchNews2() : LiveData<List<News>> {
+    fun fetchNews2(): LiveData<List<News>> {
 
         val data = MutableLiveData<List<News>>()
 
@@ -52,14 +54,23 @@ class ListNewsViewModel : ViewModel() {
         return data
     }
 
-    fun fetchNews3() : LiveData<List<News>> {
-        return RetrofitFactory.retrofitApi.getNews2()
-    }
+    fun fetchNews3(): LiveData<List<News>> {
 
-    fun fetchNews4() {
-        Transformations.map(RetrofitFactory.retrofitApi.getNews2()) {
-            listNews.value = it
-        }
+        val obs = MutableLiveData<List<News>>()
+
+        RetrofitFactory.retrofitApi.getNews2().enqueue(object : Callback<List<News>> {
+            override fun onFailure(call: Call<List<News>>, t: Throwable) {
+                //To change body of created functions use File | Settings | File Templates.
+                obs.value = emptyList()
+            }
+
+            override fun onResponse(call: Call<List<News>>, response: Response<List<News>>) {
+                obs.value = response.body()
+            }
+
+        })
+
+        return obs
     }
 
 }

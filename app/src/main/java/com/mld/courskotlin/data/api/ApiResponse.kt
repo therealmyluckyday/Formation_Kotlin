@@ -5,15 +5,13 @@ import com.mld.courskotlin.data.model.News
 
 open class ApiResponse {
 
-        @SerializedName("status")
-        val httpStatus: Int = 0
         @SerializedName("message")
         val errorMessage: String? = null // for debugging
         @SerializedName("error")
-        var errorCode: Int = 0
+        var errorCode: Int? = null
 
-    class ListNewsApiResponse : ApiResponse() {
+    class PostNewsApiResponse : ApiResponse() {
         @SerializedName("news")
-        val news: List<News>? = null
+        val news: News? = null
     }
 }
