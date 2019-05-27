@@ -9,13 +9,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mld.courskotlin.R
 import com.mld.courskotlin.data.model.News
-import com.mld.courskotlin.util.TestUtils
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.adapter_list_news.view.*
 
 class ListNewsAdapter(
-    private val listNews : List<News>,
-    private var listener: (position: Int, news: News) -> Unit) : RecyclerView.Adapter<ListNewsAdapter.ViewHolder>() {
+    private var listNews: List<News>,
+    private var listener: (position: Int, news: News) -> Unit
+) : RecyclerView.Adapter<ListNewsAdapter.ViewHolder>() {
+
+    fun updateList(list: List<News>) {
+        listNews = list
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListNewsAdapter.ViewHolder {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -30,12 +34,13 @@ class ListNewsAdapter(
         return listNews.size
     }
 
-    override fun onBindViewHolder(holder: ListNewsAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         val info = listNews[holder.adapterPosition]
-        holder.textView?.text = info.descLong
+        holder.title?.text = info.title
+        holder.desc?.text = info.descShort
 
-        val img = info.images?.get(0)
+        val img = info.image
         img?.let {
             Picasso.get()
                 .load(Uri.parse(it))
@@ -49,12 +54,15 @@ class ListNewsAdapter(
 
     }
 
-    class ViewHolder(val root: View) : RecyclerView.ViewHolder(root){
-        var img : ImageView? = null
-        var textView : TextView? = null
+    class ViewHolder(root: View) : RecyclerView.ViewHolder(root) {
+        var img: ImageView? = null
+        var title: TextView? = null
+        var desc: TextView? = null
+
         init {
             img = root.findViewById(R.id.imageView)
-            textView = root.findViewById(R.id.textView)
+            title = root.findViewById(R.id.title)
+            desc = root.findViewById(R.id.desc_short)
         }
     }
 }
