@@ -86,7 +86,7 @@ class ListNewsFragment : BaseFragment() {
 //        })
 
 
-        vm.fetchNews3().observe(this, Observer {
+        vm.fetchNews3(context!!).observe(this, Observer {
             adapter.updateList(it)
             progress.visibility = GONE
         })
