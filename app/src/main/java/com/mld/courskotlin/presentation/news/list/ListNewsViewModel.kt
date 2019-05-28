@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mld.courskotlin.data.database.DataBaseFactory
-import com.mld.courskotlin.data.database.MyDatabase
 import com.mld.courskotlin.data.model.News
 import com.mld.courskotlin.util.InternetManager
 import com.mld.courskotlin.util.RetrofitFactory
@@ -60,7 +59,7 @@ class ListNewsViewModel : ViewModel() {
 
     fun fetchNews3(context: Context): LiveData<List<News>> {
 
-        if(InternetManager.isConnected(context)) {
+        if (InternetManager.isConnected(context)) {
             val obs = MutableLiveData<List<News>>()
             RetrofitFactory.retrofitApi.getNews2().enqueue(object : Callback<List<News>> {
                 override fun onFailure(call: Call<List<News>>, t: Throwable) {
@@ -79,7 +78,7 @@ class ListNewsViewModel : ViewModel() {
             })
             return obs
         } else {
-             return DataBaseFactory.myDatabase.newsDao().fetchAll()
+            return DataBaseFactory.myDatabase.newsDao().fetchAll()
         }
 
     }

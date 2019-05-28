@@ -14,7 +14,7 @@ class DetailNewsActivity : BaseActivity() {
 
     companion object {
         var argKey = "news"
-        fun start(activity : BaseActivity, news: News) {
+        fun start(activity: BaseActivity, news: News) {
             val intent = Intent(activity, DetailNewsActivity::class.java)
             intent.putExtra(argKey, news)
             activity.startActivity(intent)
@@ -38,7 +38,7 @@ class DetailNewsActivity : BaseActivity() {
 
         news.let {
 
-            it.image?.let {image->
+            it.image?.let { image ->
                 Picasso.get()
                     .load(Uri.parse(image))
                     .placeholder(R.drawable.placeholder)

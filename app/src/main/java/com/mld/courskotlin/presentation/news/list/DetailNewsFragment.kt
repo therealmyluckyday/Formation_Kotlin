@@ -35,7 +35,7 @@ class DetailNewsFragment : BaseFragment() {
 
         news.let {
 
-            it.image?.let {image->
+            it.image?.let { image ->
                 Picasso.get()
                     .load(Uri.parse(image))
                     .placeholder(R.drawable.placeholder)

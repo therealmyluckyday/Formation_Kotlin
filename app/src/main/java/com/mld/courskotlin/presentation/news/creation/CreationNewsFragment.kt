@@ -44,11 +44,12 @@ class CreationNewsFragment : BaseFragment() {
 
         vm.postNews(title.toString(), descShort = descShort?.toString()).observe(this, Observer {
 
-            it.errorCode?.let {
-                Toast.makeText(context, "une erreur est survenue", 2).show()
-            } ?: run {
+
+            it?.let {
                 Toast.makeText(context, "News Créée", 2).show()
                 changeFragment(ListNewsFragment.newInstance("title"))
+            } ?: run {
+                Toast.makeText(context, "une erreur est survenue", 2).show()
             }
 
         })

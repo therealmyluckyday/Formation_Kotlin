@@ -1,5 +1,7 @@
 package com.mld.courskotlin.util
 
+import com.google.gson.GsonBuilder
+import com.mld.courskotlin.data.api.ApiResponse
 import com.mld.courskotlin.data.api.MyApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -14,16 +16,15 @@ object RetrofitFactory {
         val request = chain.request()
         val response = chain.proceed(request)
 
-        //val gson = GsonBuilder().create()
+        val gson = GsonBuilder().create()
 
         if (response.code() in 400..499) {
             // 4xx responses are interceptable errors and we need to wrap the body in our custom error
             val responseBody = response.body()?.string() ?: return@Interceptor response
-            /*val apiResponse = gson.fromJson(responseBody, ErrorResponseJson::class.java)
-                ?: return@Interceptor response*/
-
-            //throw ApiError(apiResponse)
+            val apiResponse = gson.fromJson(responseBody, ApiResponse::class.java)
+                ?: return@Interceptor response
             throw Throwable(responseBody)
+//            throw ApiError(apiResponse)
         }
         response
     }
@@ -36,7 +37,7 @@ object RetrofitFactory {
     //OkhttpClient for building http request url
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(interceptorLog)
-        .addInterceptor(interceptor)
+        //.addInterceptor(interceptor)
         .build()
 
 

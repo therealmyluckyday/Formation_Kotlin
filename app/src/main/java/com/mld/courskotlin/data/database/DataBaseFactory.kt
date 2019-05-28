@@ -11,9 +11,6 @@ object DataBaseFactory {
     fun initialize(appContext : Context) {
         myDatabase = Room.databaseBuilder(appContext, MyDatabase::class.java, "myDB")
             .fallbackToDestructiveMigration()
-            //.allowMainThreadQueries()
             .build()
     }
-
-
 }

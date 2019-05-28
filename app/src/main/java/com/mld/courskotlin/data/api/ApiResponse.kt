@@ -8,10 +8,14 @@ open class ApiResponse {
         @SerializedName("message")
         val errorMessage: String? = null // for debugging
         @SerializedName("error")
-        var errorCode: Int? = null
+        var errorCode: String? = null
 
     class PostNewsApiResponse : ApiResponse() {
         @SerializedName("news")
         val news: News? = null
     }
+
+    class ErrorApiResponse : ApiResponse()
 }
+
+//data class ApiError(val errorResponse: ApiResponse) : Throwable("ApiError")
