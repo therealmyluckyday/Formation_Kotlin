@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitFactory {
-    private val baseURL = "https://catalog.mld-dev.fr/api/"
+    private val baseURL = "http://catalog.mld-dev.fr/api/"
 
     private val interceptor = Interceptor { chain ->
         val request = chain.request()
